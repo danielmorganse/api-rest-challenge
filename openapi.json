@@ -1,0 +1,251 @@
+{
+  "openapi" : "3.0.3",
+  "info" : {
+    "title" : "API de Cálculo con Porcentaje Dinámico",
+    "description" : "API REST en Spring Boot para calcular valores con porcentaje dinámico, manejar caché, historial.",
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "http://localhost:8080",
+    "description" : "Servidor local"
+  } ],
+  "paths" : {
+    "/calculate" : {
+      "post" : {
+        "summary" : "Calcula la suma de dos números con un porcentaje dinámico",
+        "operationId" : "calculateSumWithPercentage",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/calculate_body"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Cálculo exitoso",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CalculateResult"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Solicitud incorrecta",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                },
+                "example" : {
+                  "code" : 400,
+                  "message" : "Petición incorrecta"
+                }
+              }
+            }
+          },
+          "429" : {
+            "description" : "Demasiadas solicitudes",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                },
+                "example" : {
+                  "code" : 429,
+                  "message" : "Peticiones por minuto excedida"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Error interno del servidor",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                },
+                "example" : {
+                  "code" : 500,
+                  "message" : "Error interno del servidor"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/history" : {
+      "get" : {
+        "summary" : "Obtiene el historial de llamadas a la API",
+        "operationId" : "getHistory",
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 0
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 10
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Historial recuperado exitosamente",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PaginatedHistory"
+                }
+              }
+            }
+          },
+          "204" : {
+            "description" : "Sin datos para la solicitud"
+          },
+          "400" : {
+            "description" : "Solicitud incorrecta",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                },
+                "example" : {
+                  "code" : 400,
+                  "message" : "Petición incorrecta"
+                }
+              }
+            }
+          },
+          "429" : {
+            "description" : "Demasiadas solicitudes",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                },
+                "example" : {
+                  "code" : 429,
+                  "message" : "Peticiones por minuto excedida"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Error interno del servidor",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                },
+                "example" : {
+                  "code" : 500,
+                  "message" : "Error interno del servidor"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Error" : {
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "number",
+            "format" : "int32",
+            "example" : 429
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "Solicitudes por minuto superadas"
+          }
+        }
+      },
+      "HistoryRecord" : {
+        "type" : "object",
+        "properties" : {
+          "timestamp" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "endpoint" : {
+            "type" : "string"
+          },
+          "urlParameters" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          },
+          "requestBody" : {
+            "type" : "string",
+            "description" : "cuerpo de respuesta serializada como string"
+          },
+          "response" : {
+            "type" : "string",
+            "description" : "cuerpo de respuesta serializada como string"
+          }
+        }
+      },
+      "PaginatedHistory" : {
+        "type" : "object",
+        "properties" : {
+          "total" : {
+            "type" : "integer"
+          },
+          "records" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/HistoryRecord"
+            }
+          }
+        }
+      },
+      "CalculateResult" : {
+        "type" : "object",
+        "properties" : {
+          "result" : {
+            "type" : "number",
+            "format" : "double",
+            "example" : 11
+          }
+        }
+      },
+      "calculate_body" : {
+        "type" : "object",
+        "properties" : {
+          "num1" : {
+            "type" : "number",
+            "format" : "double",
+            "example" : 5
+          },
+          "num2" : {
+            "type" : "number",
+            "format" : "double",
+            "example" : 5
+          }
+        }
+      }
+    }
+  }
+}
