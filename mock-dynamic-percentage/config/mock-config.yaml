@@ -2,3 +2,5 @@
 ---
 plugin: openapi
 specFile: openapi.yaml
+cors:
+  allowOrigins: all
