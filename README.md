@@ -25,15 +25,24 @@ docker-compose up --build
    - Endpoint historial: GET /history
 
 4. Probar los Endpoints con Postman:
-   - Importar la colección de Postman incluida en el repositorio.
+   - Importar la colección de Postman incluida en el repositorio ([postman_collection.json](postman_collection.json)).
 
 5. O por CLI con curl:
    - Endpoint calculo: POST /calculate
-      ```
-      curl
-      ```
+       ```
+       curl -X 'POST' \ 
+       'http://localhost:8081/calculate' \
+       -H 'accept: application/json' \
+       -H 'Content-Type: application/json' \
+       -d '{
+       "num1": 5,
+       "num2": 5
+       }'
+       ```
 
    - Endpoint historial: GET /history
-      ```
-      curl
-      ```
+       ```
+       curl -X 'GET' \
+       'http://localhost:8081/history?page=0&size=10' \
+       -H 'accept: application/json'
+       ```
