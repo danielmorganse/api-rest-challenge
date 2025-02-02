@@ -20,7 +20,7 @@ docker-compose up --build
 ```
 
 3. Acceder a la API:
-   - Swagger UI: http://localhost:8081/swagger-ui/index.html
+   - Swagger UI: http://localhost:8082/swagger-ui/index.html
    - Endpoint calculo: POST /calculate
    - Endpoint historial: GET /history
 
@@ -31,7 +31,7 @@ docker-compose up --build
    - Endpoint calculo: POST /calculate
        ```
        curl -X 'POST' \ 
-       'http://localhost:8081/calculate' \
+       'http://localhost:8082/calculate' \
        -H 'accept: application/json' \
        -H 'Content-Type: application/json' \
        -d '{
@@ -43,6 +43,6 @@ docker-compose up --build
    - Endpoint historial: GET /history
        ```
        curl -X 'GET' \
-       'http://localhost:8081/history?page=0&size=10' \
+       'http://localhost:8082/history?page=0&size=10' \
        -H 'accept: application/json'
        ```

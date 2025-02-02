@@ -1,0 +1,48 @@
+openapi: 3.0.3
+info:
+  title: API de Cálculo con Porcentaje Dinámico
+  description: API REST en Spring Boot para obtener porcentaje dinámico
+  version: 1.0.0
+servers:
+- url: http://localhost:8081
+  description: Servidor local
+paths:
+  /external-percentage:
+    get:
+      summary: Obtiene un porcentaje dinámico de un servicio externo (mock)
+      operationId: getExternalPercentage
+      responses:
+        "200":
+          description: Porcentaje obtenido exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/inline_response_200"
+        "500":
+          description: Error en el servicio externo
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+              example:
+                code: 500
+                message: Error interno del servidor
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: number
+          format: int32
+          example: 429
+        message:
+          type: string
+          example: Solicitudes por minuto superadas
+    inline_response_200:
+      type: object
+      properties:
+        percentage:
+          type: number
+          format: double
+          example: 0.1
