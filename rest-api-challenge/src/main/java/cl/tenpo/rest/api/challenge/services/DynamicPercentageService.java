@@ -23,6 +23,6 @@ public class DynamicPercentageService {
 
     @Cacheable(value = "cache1")
     public Double getCachePercentage() throws CacheNotFoundException {
-        throw new CacheNotFoundException();
+        throw new CacheNotFoundException("Porcentaje dinámico no disponible en caché");
     }
 }

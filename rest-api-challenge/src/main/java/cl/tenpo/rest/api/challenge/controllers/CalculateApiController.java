@@ -58,17 +58,11 @@ public class CalculateApiController implements CalculateApi {
     ) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            try {
-                Double result = this.calculatorService.calculate(body.getNum1(), body.getNum2());
-                CalculateResult calculateResult = new CalculateResult();
-                calculateResult.setResult(result);
-                return new ResponseEntity<CalculateResult>(calculateResult, HttpStatus.OK);
-            } catch (Exception e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<CalculateResult>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+            Double result = this.calculatorService.calculate(body.getNum1(), body.getNum2());
+            CalculateResult calculateResult = new CalculateResult();
+            calculateResult.setResult(result);
+            return new ResponseEntity<CalculateResult>(calculateResult, HttpStatus.OK);
         }
-
         return new ResponseEntity<CalculateResult>(HttpStatus.NOT_IMPLEMENTED);
     }
 
