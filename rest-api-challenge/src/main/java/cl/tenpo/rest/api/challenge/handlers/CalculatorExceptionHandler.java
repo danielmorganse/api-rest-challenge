@@ -1,4 +1,4 @@
-package cl.tenpo.rest.api.challenge.controllers.handlers;
+package cl.tenpo.rest.api.challenge.handlers;
 
 import cl.tenpo.rest.api.challenge.dtos.Error;
 import cl.tenpo.rest.api.challenge.exceptions.CacheNotFoundException;
