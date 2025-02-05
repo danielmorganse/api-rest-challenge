@@ -2,7 +2,6 @@ package cl.tenpo.rest.api.challenge.config;
 
 import cl.tenpo.rest.api.challenge.interceptors.RateLimitInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -20,7 +19,9 @@ public class Bucket4jRateLimitApp implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(interceptor)
-                .addPathPatterns(this.appConfigs.getApiBasePath() + "/**");
+        if (this.appConfigs.isRateLimitEnabled()) {
+            registry.addInterceptor(interceptor)
+                    .addPathPatterns(this.appConfigs.getRateLimitAllowedPatterns());
+        }
     }
 }

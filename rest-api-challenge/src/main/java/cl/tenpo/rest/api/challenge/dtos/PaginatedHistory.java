@@ -8,6 +8,7 @@ import io.swagger.configuration.NotUndefined;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
+import lombok.Builder;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.ArrayList;
@@ -21,19 +22,19 @@ import java.util.Objects;
 @NotUndefined
 
 
-
+@Builder
 public class PaginatedHistory   {
   @JsonProperty("total")
 
   @JsonInclude(JsonInclude.Include.NON_ABSENT)  // Exclude from JSON if absent
   @JsonSetter(nulls = Nulls.FAIL)    // FAIL setting if the value is null
-  private Integer total = null;
+  private Long total = null;
 
   @JsonProperty("records")
   @Valid
   private List<HistoryRecord> records = null;
 
-  public PaginatedHistory total(Integer total) { 
+  public PaginatedHistory total(Long total) {
 
     this.total = total;
     return this;
@@ -46,13 +47,13 @@ public class PaginatedHistory   {
   
   @Schema(description = "")
   
-  public Integer getTotal() {  
+  public Long getTotal() {
     return total;
   }
 
 
 
-  public void setTotal(Integer total) { 
+  public void setTotal(Long total) {
     this.total = total;
   }
 

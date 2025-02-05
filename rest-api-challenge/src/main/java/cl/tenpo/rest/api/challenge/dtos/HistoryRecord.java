@@ -8,6 +8,7 @@ import io.swagger.configuration.NotUndefined;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
+import lombok.Builder;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.Date;
@@ -20,7 +21,6 @@ import java.util.Objects;
  */
 @Validated
 @NotUndefined
-
 
 
 public class HistoryRecord   {

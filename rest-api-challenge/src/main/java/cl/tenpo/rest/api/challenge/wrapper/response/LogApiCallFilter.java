@@ -20,6 +20,7 @@ import org.springframework.web.util.ContentCachingResponseWrapper;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
@@ -94,7 +95,11 @@ public class LogApiCallFilter implements Filter {
 
     private boolean shouldNotFilter(HttpServletRequest request)
             throws ServletException {
+        if (!this.appConfigs.isApiCallLogsEnabled()) {
+            return true;
+        }
         String path = request.getRequestURI();
-        return !path.startsWith(this.appConfigs.getApiBasePath());
+        return this.appConfigs.getApiCallLogsAllowedEndpoints()
+                .stream().allMatch(s -> !path.startsWith(s));
     }
 }

@@ -15,8 +15,6 @@ import org.springframework.data.redis.serializer.RedisSerializationContext;
 
 import java.time.Duration;
 
-import static java.util.Arrays.asList;
-
 @Configuration
 @EnableCaching
 public class CacheConfig {
@@ -61,12 +59,5 @@ public class CacheConfig {
         jedisConFactory.setPassword(this.password);
         return jedisConFactory;
     }
-
-/*    @Bean
-    public RedisTemplate<String, Object> redisTemplate() {
-        RedisTemplate<String, Object> template = new RedisTemplate<>();
-        template.setConnectionFactory(jedisConnectionFactory());
-        return template;
-    }*/
 
 }
