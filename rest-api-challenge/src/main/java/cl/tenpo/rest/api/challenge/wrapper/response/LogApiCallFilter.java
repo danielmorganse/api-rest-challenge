@@ -9,10 +9,8 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
-import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.xml.bind.DatatypeConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +19,6 @@ import org.springframework.web.util.ContentCachingResponseWrapper;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.stream.Collectors;
 
@@ -47,13 +43,14 @@ public class LogApiCallFilter implements Filter {
 
         if (!shouldNotFilter((HttpServletRequest) servletRequest)) {
             byte[] responseBodyBytes = responseCacheWrapperObject.getContentAsByteArray();
-            extracted((HttpServletRequest) servletRequest, (HttpServletResponse) servletResponse, responseBodyBytes);
+            tryLogApiCall((HttpServletRequest) servletRequest, (HttpServletResponse) servletResponse,
+                    responseBodyBytes);
         }
         responseCacheWrapperObject.copyBodyToResponse();
     }
 
-    private void extracted(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
-                           byte[] responseBodyBytes) {
+    private void tryLogApiCall(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
+                               byte[] responseBodyBytes) {
         try {
             HttpServletRequest request = servletRequest;
             HttpServletResponse response = servletResponse;
@@ -87,11 +84,11 @@ public class LogApiCallFilter implements Filter {
                     .responseBody(responseBody)
                     .build();
             this.apiCallLogService.save(entity);
-            
+
             log.info("method={}; endpoint={}; params={}; requestBody={}; status={}; responseBody={}",
                     method, endpoint, params, requestBody, status, responseBody);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            log.error("Error al intentar grabar log de llamada API", e);
         }
     }
 

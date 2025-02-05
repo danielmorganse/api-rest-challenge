@@ -184,27 +184,24 @@
       "HistoryRecord" : {
         "type" : "object",
         "properties" : {
-          "date" : {
+          "timestamp" : {
             "type" : "string",
             "format" : "date-time"
           },
-          "requestMethod" : {
+          "endpoint" : {
             "type" : "string"
           },
-          "requestEndpoint" : {
-            "type" : "string"
-          },
-          "requestParams" : {
-            "type" : "string"
+          "urlParameters" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
           },
           "requestBody" : {
             "type" : "string",
-            "description" : "cuerpo de petición serializada como string"
+            "description" : "cuerpo de respuesta serializada como string"
           },
-          "responseStatus" : {
-            "type" : "integer"
-          },
-          "responseBody" : {
+          "response" : {
             "type" : "string",
             "description" : "cuerpo de respuesta serializada como string"
           }
@@ -214,8 +211,7 @@
         "type" : "object",
         "properties" : {
           "total" : {
-            "type" : "integer",
-            "format" : "int64"
+            "type" : "integer"
           },
           "records" : {
             "type" : "array",
