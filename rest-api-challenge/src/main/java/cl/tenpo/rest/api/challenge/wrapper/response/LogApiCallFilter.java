@@ -1,6 +1,8 @@
 package cl.tenpo.rest.api.challenge.wrapper.response;
 
 import cl.tenpo.rest.api.challenge.config.AppConfigs;
+import cl.tenpo.rest.api.challenge.entities.ApiCallRecord;
+import cl.tenpo.rest.api.challenge.services.ApiCallLogService;
 import cl.tenpo.rest.api.challenge.utils.MapUtils;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -21,12 +23,16 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import java.util.stream.Collectors;
 
 @Component
 public class LogApiCallFilter implements Filter {
 
     private static final Logger log = LoggerFactory.getLogger(LogApiCallFilter.class);
+
+    @Autowired
+    private ApiCallLogService apiCallLogService;
 
     @Autowired
     private AppConfigs appConfigs;
@@ -46,8 +52,8 @@ public class LogApiCallFilter implements Filter {
         responseCacheWrapperObject.copyBodyToResponse();
     }
 
-    private static void extracted(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
-                                  byte[] responseBodyBytes) {
+    private void extracted(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
+                           byte[] responseBodyBytes) {
         try {
             HttpServletRequest request = servletRequest;
             HttpServletResponse response = servletResponse;
@@ -56,7 +62,7 @@ public class LogApiCallFilter implements Filter {
             String requestBody = null;
             String endpoint = request.getRequestURI();
             String method = request.getMethod();
-            String status = String.valueOf(response.getStatus());
+            int status = response.getStatus();
             String responseBody = null;
 
             try {
@@ -71,7 +77,17 @@ public class LogApiCallFilter implements Filter {
                 throw new RuntimeException(e);
             }
 
-            //logService.logApiCall(method, endpoint, params, responseBody, status);
+            ApiCallRecord entity = ApiCallRecord.builder()
+                    .date(new Date())
+                    .requestMethod(method)
+                    .requestEndpoint(endpoint)
+                    .requestParams(params)
+                    .requestBody(requestBody)
+                    .responseStatus(status)
+                    .responseBody(responseBody)
+                    .build();
+            this.apiCallLogService.save(entity);
+            
             log.info("method={}; endpoint={}; params={}; requestBody={}; status={}; responseBody={}",
                     method, endpoint, params, requestBody, status, responseBody);
         } catch (Exception e) {
