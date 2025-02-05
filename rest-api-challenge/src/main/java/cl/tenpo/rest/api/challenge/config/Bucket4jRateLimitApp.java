@@ -12,8 +12,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 public class Bucket4jRateLimitApp implements WebMvcConfigurer {
 
-    @Value("${api.base-path}")
-    private String apiBasePath = "";
+    @Autowired
+    private AppConfigs appConfigs;
 
     @Autowired
     private RateLimitInterceptor interceptor;
@@ -21,6 +21,6 @@ public class Bucket4jRateLimitApp implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(interceptor)
-                .addPathPatterns(this.apiBasePath + "/**");
+                .addPathPatterns(this.appConfigs.getApiBasePath() + "/**");
     }
 }

@@ -1,11 +1,13 @@
 package cl.tenpo.rest.api.challenge.wrapper.request;
 
 
+import cl.tenpo.rest.api.challenge.config.AppConfigs;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -15,8 +17,11 @@ import java.io.IOException;
 
 @Order(value = Ordered.HIGHEST_PRECEDENCE)
 @Component
-@WebFilter(filterName = "ContentCachingFilter", urlPatterns = "/*")
+@WebFilter(filterName = "ContentCachingFilter")
 public class ContentCachingFilter extends OncePerRequestFilter {
+
+    @Autowired
+    private AppConfigs appConfigs;
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
@@ -26,5 +31,12 @@ public class ContentCachingFilter extends OncePerRequestFilter {
         CachedBodyHttpServletRequest cachedBodyHttpServletRequest =
                 new CachedBodyHttpServletRequest(httpServletRequest);
         filterChain.doFilter(cachedBodyHttpServletRequest, httpServletResponse);
+    }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request)
+            throws ServletException {
+        String path = request.getRequestURI();
+        return !path.startsWith(this.appConfigs.getApiBasePath());
     }
 }
