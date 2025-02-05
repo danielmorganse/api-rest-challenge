@@ -32,6 +32,7 @@ import java.util.Optional;
 
 
 @Validated
+@RequestMapping(path = "${api.base-path}")
 public interface HistoryApi {
 
     Logger log = LoggerFactory.getLogger(HistoryApi.class);

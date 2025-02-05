@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.math.BigDecimal;
 
-@ControllerAdvice
+//@ControllerAdvice
 public class CalculatorExceptionHandler
         extends ResponseEntityExceptionHandler {
 

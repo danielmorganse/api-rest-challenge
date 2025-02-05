@@ -33,6 +33,7 @@ import java.util.Optional;
 
 
 @Validated
+@RequestMapping(path = "${api.base-path}")
 public interface CalculateApi {
 
     Logger log = LoggerFactory.getLogger(CalculateApi.class);
