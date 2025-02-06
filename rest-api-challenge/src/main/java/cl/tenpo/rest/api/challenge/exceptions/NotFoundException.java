@@ -1,4 +1,4 @@
-package cl.tenpo.rest.api.challenge.controllers;
+package cl.tenpo.rest.api.challenge.exceptions;
 
 
 public class NotFoundException extends ApiException {

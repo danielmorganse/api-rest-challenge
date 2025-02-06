@@ -27,14 +27,14 @@ public class RateLimitInterceptor implements HandlerInterceptor {
 
     private Bucket tokenBucket;
 
+    private final ObjectMapper objectMapper = new ObjectMapper(); // Para convertir objetos a JSON
+
     @PostConstruct
     private void postConstruct() {
         tokenBucket = Bucket.builder()
                 .addLimit(Bandwidth.classic(capacity, Refill.intervally(capacity, Duration.ofMinutes(minutes))))
                 .build();
     }
-
-    private final ObjectMapper objectMapper = new ObjectMapper(); // Para convertir objetos a JSON
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)

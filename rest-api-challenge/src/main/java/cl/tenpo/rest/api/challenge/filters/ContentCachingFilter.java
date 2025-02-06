@@ -1,7 +1,8 @@
-package cl.tenpo.rest.api.challenge.wrapper.request;
+package cl.tenpo.rest.api.challenge.filters;
 
 
 import cl.tenpo.rest.api.challenge.config.AppConfigs;
+import cl.tenpo.rest.api.challenge.wrapper.request.CachedBodyHttpServletRequest;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebFilter;

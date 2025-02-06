@@ -1,11 +1,9 @@
 package cl.tenpo.rest.api.challenge.services;
 
-import cl.tenpo.rest.api.challenge.controllers.NotFoundException;
 import cl.tenpo.rest.api.challenge.exceptions.CacheNotFoundException;
 import cl.tenpo.rest.api.challenge.rest.clients.externalpercentage.ExternalPercentageClient;
 import cl.tenpo.rest.api.challenge.rest.clients.externalpercentage.dtos.ResultExternalPercentage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.Cache;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;

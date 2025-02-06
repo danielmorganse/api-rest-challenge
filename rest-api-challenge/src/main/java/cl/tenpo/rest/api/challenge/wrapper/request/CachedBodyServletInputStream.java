@@ -2,12 +2,16 @@ package cl.tenpo.rest.api.challenge.wrapper.request;
 
 import jakarta.servlet.ReadListener;
 import jakarta.servlet.ServletInputStream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 public class CachedBodyServletInputStream extends ServletInputStream {
+
+    private static final Logger log = LoggerFactory.getLogger(CachedBodyServletInputStream.class);
 
     private InputStream cachedBodyInputStream;
 
@@ -20,8 +24,7 @@ public class CachedBodyServletInputStream extends ServletInputStream {
         try {
             return cachedBodyInputStream.available() == 0;
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            log.warn("", e);
         }
         return false;
     }

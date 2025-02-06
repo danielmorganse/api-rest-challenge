@@ -1,4 +1,4 @@
-package cl.tenpo.rest.api.challenge.wrapper.response;
+package cl.tenpo.rest.api.challenge.filters;
 
 import cl.tenpo.rest.api.challenge.config.AppConfigs;
 import cl.tenpo.rest.api.challenge.entities.ApiCallRecord;
@@ -20,7 +20,6 @@ import org.springframework.web.util.ContentCachingResponseWrapper;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Component

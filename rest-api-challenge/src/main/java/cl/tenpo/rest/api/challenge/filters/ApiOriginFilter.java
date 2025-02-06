@@ -1,4 +1,4 @@
-package cl.tenpo.rest.api.challenge.controllers;
+package cl.tenpo.rest.api.challenge.filters;
 
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -17,7 +17,7 @@ public class ApiOriginFilter implements Filter {
             FilterChain chain) throws IOException, ServletException {
         HttpServletResponse res = (HttpServletResponse) response;
         res.addHeader("Access-Control-Allow-Origin", "*");
-        res.addHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
+        res.addHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
         res.addHeader("Access-Control-Allow-Headers", "Content-Type");
         chain.doFilter(request, response);
     }
