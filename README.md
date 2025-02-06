@@ -32,7 +32,7 @@ cd rest-api-challenge
 ```
 
 2. Ejecutar con Docker:
-- Para utilizar la imagen desde docker hub, comente la linea **build** y descomente la linea de **image** del archivo [docker-compose.yml](rest-api-challenge/docker-compose.yml)
+- Para utilizar la imagen desde docker hub, comente la linea **build** y descomente la linea de **image** del archivo [docker-compose.yml](docker-compose.yml)
 ```yaml
     image: devdams/rest-api-challenge:latest
     # build: ./rest-api-challenge
