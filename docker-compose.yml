@@ -31,6 +31,7 @@ services:
       POSTGRES_DB: db_tenpochallenge
       POSTGRES_USER: usr_apirestchallenge
       POSTGRES_PASSWORD: mysecretpassworddb
+    # La exposición del puerto al host solo es necesaria si se requiere acceder desde el host para inspeccionar la base de datos.
     ports:
       - "5432:5432"
     volumes:
@@ -43,6 +44,7 @@ services:
     container_name: challenge-redis
     restart: always
     command: ["redis-server", "--appendonly", "yes", "--requirepass", "mysecretpasswordcache"]
+    # La exposición del puerto al host solo es necesaria si se requiere acceder desde el host para inspeccionar Redis.
     ports:
       - "6379:6379"
     networks:
@@ -51,6 +53,7 @@ services:
   mock:
     image: outofcoffee/imposter
     container_name: challenge-mock
+    # La exposición del puerto al host solo es necesaria si se requiere acceder desde el host para inspeccionar el servicio mock.
     ports:
       - "8081:8080"
     volumes:
