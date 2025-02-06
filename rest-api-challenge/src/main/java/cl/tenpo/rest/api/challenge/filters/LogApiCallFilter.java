@@ -60,23 +60,12 @@ public class LogApiCallFilter implements Filter {
             HttpServletResponse response = servletResponse;
 
             String params = MapUtils.convertWithIteration(request.getParameterMap());
-            String requestBody = null;
             String endpoint = request.getRequestURI();
             String method = request.getMethod();
             int status = response.getStatus();
-            String responseBody = null;
 
-            try {
-                requestBody = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-            try {
-                responseBody = new String(responseBodyBytes, StandardCharsets.UTF_8);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            String requestBody = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+            String responseBody = new String(responseBodyBytes, StandardCharsets.UTF_8);
 
             ApiCallRecord entity = ApiCallRecord.builder()
                     .date(new Date())

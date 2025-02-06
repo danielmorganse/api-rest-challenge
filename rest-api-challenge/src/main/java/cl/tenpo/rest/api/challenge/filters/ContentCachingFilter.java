@@ -8,6 +8,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -21,6 +23,8 @@ import java.io.IOException;
 @WebFilter(filterName = "ContentCachingFilter")
 public class ContentCachingFilter extends OncePerRequestFilter {
 
+    private static final Logger log = LoggerFactory.getLogger(ContentCachingFilter.class);
+
     private AppConfigs appConfigs;
 
     @Autowired
@@ -32,7 +36,7 @@ public class ContentCachingFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
                                     FilterChain filterChain) throws
             ServletException, IOException {
-        System.out.println("IN  ContentCachingFilter ");
+        log.debug("IN  ContentCachingFilter ");
         CachedBodyHttpServletRequest cachedBodyHttpServletRequest =
                 new CachedBodyHttpServletRequest(httpServletRequest);
         filterChain.doFilter(cachedBodyHttpServletRequest, httpServletResponse);
