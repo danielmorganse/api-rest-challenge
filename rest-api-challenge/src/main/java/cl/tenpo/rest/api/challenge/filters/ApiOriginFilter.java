@@ -16,8 +16,12 @@ import java.io.IOException;
 @Component
 public class ApiOriginFilter implements Filter {
 
-    @Autowired
     private SecurityHeaderConfigs securityHeaderConfigs;
+
+    @Autowired
+    public ApiOriginFilter(SecurityHeaderConfigs securityHeaderConfigs) {
+        this.securityHeaderConfigs = securityHeaderConfigs;
+    }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,

@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.Nulls;
 import io.swagger.configuration.NotUndefined;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
 import lombok.Builder;
 import org.springframework.validation.annotation.Validated;
 

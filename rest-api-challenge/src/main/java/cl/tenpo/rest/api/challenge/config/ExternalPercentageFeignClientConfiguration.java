@@ -2,7 +2,6 @@ package cl.tenpo.rest.api.challenge.config;
 
 import feign.Logger;
 import feign.Request;
-import feign.RetryableException;
 import feign.Retryer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;

@@ -1,21 +1,17 @@
 package cl.tenpo.rest.api.challenge.dtos;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Date;
 import org.springframework.validation.annotation.Validated;
-import org.openapitools.jackson.nullable.JsonNullable;
 import io.swagger.configuration.NotUndefined;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
 
 /**
  * HistoryRecord
