@@ -1,4 +1,4 @@
-FROM openjdk:21-jdk-slim as builder
+FROM openjdk:21-jdk-slim AS builder
 WORKDIR /app
 COPY . .
 RUN ./mvnw clean package -DskipTests

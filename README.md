@@ -26,13 +26,20 @@ tasas de consumo (Rate Limiting) y manejo adecuado de errores.
 # Instrucciones de despliegue local
 
 1. Clonar el repositorio:
-```
+```sh
 git clone https://github.com/danielmorganse/api-rest-challenge.git
 cd rest-api-challenge
 ```
 
 2. Ejecutar con Docker:
+- Para utilizar la imagen desde docker hub, comente la linea **build** y descomente la linea de **image** del archivo [docker-compose.yml](rest-api-challenge/docker-compose.yml)
+```yaml
+    image: devdams/rest-api-challenge:latest
+    # build: ./rest-api-challenge
 ```
+
+- Ejecutar:
+```sh
 docker compose up --build
 ```
 Nota: La instrucción levantará el API REST, un servicio mock que retorna un porcentaje, un caché Redis y una BD PostgreSQL.
@@ -47,7 +54,7 @@ Nota: La instrucción levantará el API REST, un servicio mock que retorna un po
    - **Postman**: Importar la colección de Postman incluida en el repositorio ([postman_collection.json](rest-api-challenge/postman_collection.json)).
    - **CLI**: Mediante la ejecución de instruciones CLI con curl.
       - Endpoint calculo: POST /calculate
-         ```
+         ```sh
          curl -X 'POST' \ 
          'http://localhost:8082/calculate' \
          -H 'accept: application/json' \
@@ -59,32 +66,11 @@ Nota: La instrucción levantará el API REST, un servicio mock que retorna un po
          ```
 
       - Endpoint historial: GET /history
-         ```
+         ```sh
          curl -X 'GET' \
          'http://localhost:8082/history?page=0&size=10' \
          -H 'accept: application/json'
          ```
-   
-
-5. O por CLI con curl:
-   - Endpoint calculo: POST /calculate
-       ```
-       curl -X 'POST' \ 
-       'http://localhost:8082/calculate' \
-       -H 'accept: application/json' \
-       -H 'Content-Type: application/json' \
-       -d '{
-       "num1": 5,
-       "num2": 5
-       }'
-       ```
-
-   - Endpoint historial: GET /history
-       ```
-       curl -X 'GET' \
-       'http://localhost:8082/history?page=0&size=10' \
-       -H 'accept: application/json'
-       ```
 
 ---
 

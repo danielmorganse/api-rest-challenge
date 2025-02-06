@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   app:
+    #image: devdams/rest-api-challenge:latest
     build: ./rest-api-challenge
     container_name: challenge-api
     ports:
