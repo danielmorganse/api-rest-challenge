@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  app:
+    build: ./rest-api-challenge
+    container_name: challenge-api
+    ports:
+      - "8082:8080"
+    depends_on:
+      - db
+      - redis
+      - mock
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/db_tenpochallenge
+      SPRING_DATASOURCE_USERNAME: usr_apirestchallenge
+      SPRING_DATASOURCE_PASSWORD: mysecretpassworddb
+      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_PORT: 6379
+      SPRING_REDIS_PASSWORD: mysecretpasswordcache
+      SPRING_REDIS_TTL: 30
+      REST_CLIENT_EXTERNALPERCENTAGE_URL: http://mock:8080/
+    networks:
+      - internal_network
+
+  db:
+    image: postgres:16
+    container_name: challenge-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: db_tenpochallenge
+      POSTGRES_USER: usr_apirestchallenge
+      POSTGRES_PASSWORD: mysecretpassworddb
+    #ports:
+    #  - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - internal_network
+
+  redis:
+    image: redis:7
+    container_name: challenge-redis
+    restart: always
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "mysecretpasswordcache"]
+    #ports:
+    #  - "6379:6379"
+    networks:
+      - internal_network
+
+  mock:
+    image: outofcoffee/imposter
+    container_name: challenge-mock
+    #ports:
+    #  - "8081:8080"
+    volumes:
+      - ./mock-dynamic-percentage/config:/opt/imposter/config
+    networks:
+      - internal_network
+
+volumes:
+  postgres_data:
+
+networks:
+  internal_network:
+    driver: bridge

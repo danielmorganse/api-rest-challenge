@@ -4,7 +4,7 @@ info:
   description: API REST en Spring Boot para obtener porcentaje dinámico
   version: 1.0.0
 servers:
-- url: http://localhost:8081
+- url: http://localhost:8080
   description: Servidor local
 paths:
   /external-percentage:
