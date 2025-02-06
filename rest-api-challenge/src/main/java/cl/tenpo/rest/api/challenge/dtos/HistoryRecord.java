@@ -1,20 +1,21 @@
 package cl.tenpo.rest.api.challenge.dtos;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import java.time.LocalDateTime;
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.Date;
+import org.springframework.validation.annotation.Validated;
+import org.openapitools.jackson.nullable.JsonNullable;
+import io.swagger.configuration.NotUndefined;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
-import io.swagger.configuration.NotUndefined;
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
-import lombok.Builder;
-import org.springframework.validation.annotation.Validated;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 /**
  * HistoryRecord
@@ -23,161 +24,216 @@ import java.util.Objects;
 @NotUndefined
 
 
+
 public class HistoryRecord   {
-  @JsonProperty("timestamp")
+  @JsonProperty("date")
 
   @JsonInclude(JsonInclude.Include.NON_ABSENT)  // Exclude from JSON if absent
   @JsonSetter(nulls = Nulls.FAIL)    // FAIL setting if the value is null
-  private Date timestamp = null;
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSz", timezone = "America/Santiago")
+  private Date date = null;
 
-  @JsonProperty("endpoint")
+  @JsonProperty("requestMethod")
 
   @JsonInclude(JsonInclude.Include.NON_ABSENT)  // Exclude from JSON if absent
   @JsonSetter(nulls = Nulls.FAIL)    // FAIL setting if the value is null
-  private String endpoint = null;
+  private String requestMethod = null;
 
-  @JsonProperty("urlParameters")
-  @Valid
-  private Map<String, String> urlParameters = null;
+  @JsonProperty("requestEndpoint")
+
+  @JsonInclude(JsonInclude.Include.NON_ABSENT)  // Exclude from JSON if absent
+  @JsonSetter(nulls = Nulls.FAIL)    // FAIL setting if the value is null
+  private String requestEndpoint = null;
+
+  @JsonProperty("requestParams")
+
+  @JsonInclude(JsonInclude.Include.NON_ABSENT)  // Exclude from JSON if absent
+  @JsonSetter(nulls = Nulls.FAIL)    // FAIL setting if the value is null
+  private String requestParams = null;
+
   @JsonProperty("requestBody")
 
   @JsonInclude(JsonInclude.Include.NON_ABSENT)  // Exclude from JSON if absent
   @JsonSetter(nulls = Nulls.FAIL)    // FAIL setting if the value is null
   private String requestBody = null;
 
-  @JsonProperty("response")
+  @JsonProperty("responseStatus")
 
   @JsonInclude(JsonInclude.Include.NON_ABSENT)  // Exclude from JSON if absent
   @JsonSetter(nulls = Nulls.FAIL)    // FAIL setting if the value is null
-  private String response = null;
+  private Integer responseStatus = null;
+
+  @JsonProperty("responseBody")
+
+  @JsonInclude(JsonInclude.Include.NON_ABSENT)  // Exclude from JSON if absent
+  @JsonSetter(nulls = Nulls.FAIL)    // FAIL setting if the value is null
+  private String responseBody = null;
 
 
-  public HistoryRecord timestamp(Date timestamp) { 
+  public HistoryRecord date(Date date) {
 
-    this.timestamp = timestamp;
+    this.date = date;
     return this;
   }
 
   /**
-   * Get timestamp
-   * @return timestamp
+   * Get date
+   * @return date
    **/
-  
+
   @Schema(description = "")
-  
-@Valid
-  public Date getTimestamp() {  
-    return timestamp;
+
+  @Valid
+  public Date getDate() {
+    return date;
   }
 
 
 
-  public void setTimestamp(Date timestamp) { 
-    this.timestamp = timestamp;
+  public void setDate(Date date) {
+    this.date = date;
   }
 
-  public HistoryRecord endpoint(String endpoint) { 
+  public HistoryRecord requestMethod(String requestMethod) {
 
-    this.endpoint = endpoint;
+    this.requestMethod = requestMethod;
     return this;
   }
 
   /**
-   * Get endpoint
-   * @return endpoint
+   * Get requestMethod
+   * @return requestMethod
    **/
-  
+
   @Schema(description = "")
-  
-  public String getEndpoint() {  
-    return endpoint;
+
+  public String getRequestMethod() {
+    return requestMethod;
   }
 
 
 
-  public void setEndpoint(String endpoint) { 
-    this.endpoint = endpoint;
+  public void setRequestMethod(String requestMethod) {
+    this.requestMethod = requestMethod;
   }
 
-  public HistoryRecord urlParameters(Map<String, String> urlParameters) { 
+  public HistoryRecord requestEndpoint(String requestEndpoint) {
 
-    this.urlParameters = urlParameters;
-    return this;
-  }
-
-  public HistoryRecord putUrlParametersItem(String key, String urlParametersItem) {
-    if (this.urlParameters == null) {
-      this.urlParameters = new HashMap<String, String>();
-    }
-    this.urlParameters.put(key, urlParametersItem);
+    this.requestEndpoint = requestEndpoint;
     return this;
   }
 
   /**
-   * Get urlParameters
-   * @return urlParameters
+   * Get requestEndpoint
+   * @return requestEndpoint
    **/
-  
+
   @Schema(description = "")
-  
-  public Map<String, String> getUrlParameters() {  
-    return urlParameters;
+
+  public String getRequestEndpoint() {
+    return requestEndpoint;
   }
 
 
 
-  public void setUrlParameters(Map<String, String> urlParameters) { 
-    this.urlParameters = urlParameters;
+  public void setRequestEndpoint(String requestEndpoint) {
+    this.requestEndpoint = requestEndpoint;
   }
 
-  public HistoryRecord requestBody(String requestBody) { 
+  public HistoryRecord requestParams(String requestParams) {
+
+    this.requestParams = requestParams;
+    return this;
+  }
+
+  /**
+   * Get requestParams
+   * @return requestParams
+   **/
+
+  @Schema(description = "")
+
+  public String getRequestParams() {
+    return requestParams;
+  }
+
+
+
+  public void setRequestParams(String requestParams) {
+    this.requestParams = requestParams;
+  }
+
+  public HistoryRecord requestBody(String requestBody) {
 
     this.requestBody = requestBody;
     return this;
   }
 
   /**
-   * cuerpo de respuesta serializada como string
+   * cuerpo de petición serializada como string
    * @return requestBody
    **/
-  
-  @Schema(description = "cuerpo de respuesta serializada como string")
-  
-  public String getRequestBody() {  
+
+  @Schema(description = "cuerpo de petición serializada como string")
+
+  public String getRequestBody() {
     return requestBody;
   }
 
 
 
-  public void setRequestBody(String requestBody) { 
+  public void setRequestBody(String requestBody) {
     this.requestBody = requestBody;
   }
 
-  public HistoryRecord response(String response) { 
+  public HistoryRecord responseStatus(Integer responseStatus) {
 
-    this.response = response;
+    this.responseStatus = responseStatus;
+    return this;
+  }
+
+  /**
+   * Get responseStatus
+   * @return responseStatus
+   **/
+
+  @Schema(description = "")
+
+  public Integer getResponseStatus() {
+    return responseStatus;
+  }
+
+
+
+  public void setResponseStatus(Integer responseStatus) {
+    this.responseStatus = responseStatus;
+  }
+
+  public HistoryRecord responseBody(String responseBody) {
+
+    this.responseBody = responseBody;
     return this;
   }
 
   /**
    * cuerpo de respuesta serializada como string
-   * @return response
+   * @return responseBody
    **/
-  
+
   @Schema(description = "cuerpo de respuesta serializada como string")
-  
-  public String getResponse() {  
-    return response;
+
+  public String getResponseBody() {
+    return responseBody;
   }
 
 
 
-  public void setResponse(String response) { 
-    this.response = response;
+  public void setResponseBody(String responseBody) {
+    this.responseBody = responseBody;
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(java.lang.Object o) {
     if (this == o) {
       return true;
     }
@@ -185,28 +241,32 @@ public class HistoryRecord   {
       return false;
     }
     HistoryRecord historyRecord = (HistoryRecord) o;
-    return Objects.equals(this.timestamp, historyRecord.timestamp) &&
-        Objects.equals(this.endpoint, historyRecord.endpoint) &&
-        Objects.equals(this.urlParameters, historyRecord.urlParameters) &&
-        Objects.equals(this.requestBody, historyRecord.requestBody) &&
-        Objects.equals(this.response, historyRecord.response);
+    return Objects.equals(this.date, historyRecord.date) &&
+            Objects.equals(this.requestMethod, historyRecord.requestMethod) &&
+            Objects.equals(this.requestEndpoint, historyRecord.requestEndpoint) &&
+            Objects.equals(this.requestParams, historyRecord.requestParams) &&
+            Objects.equals(this.requestBody, historyRecord.requestBody) &&
+            Objects.equals(this.responseStatus, historyRecord.responseStatus) &&
+            Objects.equals(this.responseBody, historyRecord.responseBody);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(timestamp, endpoint, urlParameters, requestBody, response);
+    return Objects.hash(date, requestMethod, requestEndpoint, requestParams, requestBody, responseStatus, responseBody);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class HistoryRecord {\n");
-    
-    sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
-    sb.append("    endpoint: ").append(toIndentedString(endpoint)).append("\n");
-    sb.append("    urlParameters: ").append(toIndentedString(urlParameters)).append("\n");
+
+    sb.append("    date: ").append(toIndentedString(date)).append("\n");
+    sb.append("    requestMethod: ").append(toIndentedString(requestMethod)).append("\n");
+    sb.append("    requestEndpoint: ").append(toIndentedString(requestEndpoint)).append("\n");
+    sb.append("    requestParams: ").append(toIndentedString(requestParams)).append("\n");
     sb.append("    requestBody: ").append(toIndentedString(requestBody)).append("\n");
-    sb.append("    response: ").append(toIndentedString(response)).append("\n");
+    sb.append("    responseStatus: ").append(toIndentedString(responseStatus)).append("\n");
+    sb.append("    responseBody: ").append(toIndentedString(responseBody)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -215,7 +275,7 @@ public class HistoryRecord   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(Object o) {
+  private String toIndentedString(java.lang.Object o) {
     if (o == null) {
       return "null";
     }
