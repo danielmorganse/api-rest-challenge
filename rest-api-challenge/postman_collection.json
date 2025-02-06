@@ -26,7 +26,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"num1\": \"<double>\",\n  \"num2\": \"<double>\"\n}",
+							"raw": "{\n    \"num1\": \"5\",\n    \"num2\": \"5\"\n}",
 							"options": {
 								"raw": {
 									"headerFamily": "json",
@@ -35,11 +35,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/calculate",
+							"raw": "{{baseUrl}}/{{basePathRest}}/calculate",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
+								"{{basePathRest}}",
 								"calculate"
 							]
 						}
@@ -70,11 +71,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/calculate",
+									"raw": "{{baseUrl}}/{{basePathRest}}/calculate",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
+										"{{basePathRest}}",
 										"calculate"
 									]
 								}
@@ -116,11 +118,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/calculate",
+									"raw": "{{baseUrl}}/{{basePathRest}}/calculate",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
+										"{{basePathRest}}",
 										"calculate"
 									]
 								}
@@ -162,11 +165,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/calculate",
+									"raw": "{{baseUrl}}/{{basePathRest}}/calculate",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
+										"{{basePathRest}}",
 										"calculate"
 									]
 								}
@@ -208,11 +212,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/calculate",
+									"raw": "{{baseUrl}}/{{basePathRest}}/calculate",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
+										"{{basePathRest}}",
 										"calculate"
 									]
 								}
@@ -247,11 +252,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/history?page=0&size=10",
+							"raw": "{{baseUrl}}/{{basePathRest}}/history?page=0&size=10",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
+								"{{basePathRest}}",
 								"history"
 							],
 							"query": [
@@ -278,11 +284,12 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/history?page=0&size=10",
+									"raw": "{{baseUrl}}/{{basePathRest}}/history?page=0&size=10",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
+										"{{basePathRest}}",
 										"history"
 									],
 									"query": [
@@ -315,11 +322,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/history?page=0&size=10",
+									"raw": "{{baseUrl}}/{{basePathRest}}/history?page=0&size=10",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
+										"{{basePathRest}}",
 										"history"
 									],
 									"query": [
@@ -352,11 +360,12 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/history?page=0&size=10",
+									"raw": "{{baseUrl}}/{{basePathRest}}/history?page=0&size=10",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
+										"{{basePathRest}}",
 										"history"
 									],
 									"query": [
@@ -394,11 +403,12 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/history?page=0&size=10",
+									"raw": "{{baseUrl}}/{{basePathRest}}/history?page=0&size=10",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
+										"{{basePathRest}}",
 										"history"
 									],
 									"query": [
@@ -436,11 +446,12 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/history?page=0&size=10",
+									"raw": "{{baseUrl}}/{{basePathRest}}/history?page=0&size=10",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
+										"{{basePathRest}}",
 										"history"
 									],
 									"query": [
@@ -472,10 +483,37 @@
 			]
 		}
 	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
 	"variable": [
 		{
 			"key": "baseUrl",
-			"value": "http://localhost:8080"
+			"value": "http://localhost:8082"
+		},
+		{
+			"key": "basePathRest",
+			"value": "api/v1",
+			"type": "string"
 		}
 	]
 }
