@@ -8,6 +8,7 @@ class RestApiChallengeApplicationTests {
 
 	@Test
 	void contextLoads() {
+		//Nada
 	}
 
 }

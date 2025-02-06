@@ -17,6 +17,7 @@ public class NotUndefinedValidator implements ConstraintValidator<NotUndefined, 
         //Nada
     }
 
+    @SuppressWarnings("java:S3011")
     @Override
     public boolean isValid(Object addressInformation, ConstraintValidatorContext context) {
         Class<?> objClass = addressInformation.getClass();
