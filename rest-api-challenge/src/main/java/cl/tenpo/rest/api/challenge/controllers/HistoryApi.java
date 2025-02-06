@@ -48,6 +48,7 @@ public interface HistoryApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
+    @SuppressWarnings("java:S3655")
     @Operation(summary = "Obtiene el historial de llamadas a la API", description = "", tags={  })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Historial recuperado exitosamente", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PaginatedHistory.class))),
@@ -65,7 +66,7 @@ public interface HistoryApi {
 , @Parameter(in = ParameterIn.QUERY, description = "" ,schema=@Schema( defaultValue="10")) @Valid @RequestParam(value = "size", required = false, defaultValue="10") Integer size
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
-            if (getAcceptHeader().isPresent() && getAcceptHeader().get().contains("application/json")) {
+            if (getAcceptHeader().get().contains("application/json")) {
                 try {
                     return new ResponseEntity<>(getObjectMapper().get().readValue("{\n  \"total\" : 0,\n  \"records\" : [ {\n    \"endpoint\" : \"endpoint\",\n    \"requestBody\" : \"requestBody\",\n    \"response\" : \"response\",\n    \"urlParameters\" : {\n      \"key\" : \"urlParameters\"\n    },\n    \"timestamp\" : \"2000-01-23T04:56:07.000+00:00\"\n  }, {\n    \"endpoint\" : \"endpoint\",\n    \"requestBody\" : \"requestBody\",\n    \"response\" : \"response\",\n    \"urlParameters\" : {\n      \"key\" : \"urlParameters\"\n    },\n    \"timestamp\" : \"2000-01-23T04:56:07.000+00:00\"\n  } ]\n}", PaginatedHistory.class), HttpStatus.NOT_IMPLEMENTED);
                 } catch (IOException e) {

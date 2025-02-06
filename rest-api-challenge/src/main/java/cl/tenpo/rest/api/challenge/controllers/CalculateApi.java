@@ -49,6 +49,7 @@ public interface CalculateApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
+    @SuppressWarnings("java:S3655")
     @Operation(summary = "Calcula la suma de dos números con un porcentaje dinámico", description = "", tags={  })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Cálculo exitoso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CalculateResult.class))),
@@ -64,7 +65,7 @@ public interface CalculateApi {
     default ResponseEntity<CalculateResult> calculateSumWithPercentage(@Parameter(in = ParameterIn.DEFAULT, description = "", required=true, schema=@Schema()) @Valid @RequestBody CalculateBody body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
-            if (getAcceptHeader().isPresent() && getAcceptHeader().get().contains("application/json")) {
+            if (getAcceptHeader().get().contains("application/json")) {
                 try {
                     return new ResponseEntity<>(getObjectMapper().get().readValue("{\n  \"result\" : 11\n}", CalculateResult.class), HttpStatus.NOT_IMPLEMENTED);
                 } catch (IOException e) {
