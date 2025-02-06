@@ -38,12 +38,10 @@ public class ApiCallLogService {
         List<HistoryRecord> list2 =
                 list.stream().map(apiCallRecord -> modelMapper.map(apiCallRecord, HistoryRecord.class)).toList();
 
-        PaginatedHistory paginatedHistory = PaginatedHistory.builder()
+        return PaginatedHistory.builder()
                 .total(count)
                 .records(list2)
                 .build();
-
-        return paginatedHistory;
     }
 
 

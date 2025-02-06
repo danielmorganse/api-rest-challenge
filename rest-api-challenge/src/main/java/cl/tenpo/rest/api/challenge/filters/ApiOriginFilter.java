@@ -36,9 +36,11 @@ public class ApiOriginFilter implements Filter {
 
     @Override
     public void destroy() {
+        //Nada
     }
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
+        //Nada
     }
 }

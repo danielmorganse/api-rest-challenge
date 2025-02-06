@@ -64,7 +64,7 @@ public class PaginatedHistory   {
 
   public PaginatedHistory addRecordsItem(HistoryRecord recordsItem) {
     if (this.records == null) {
-      this.records = new ArrayList<HistoryRecord>();
+      this.records = new ArrayList<>();
     }
     this.records.add(recordsItem);
     return this;
