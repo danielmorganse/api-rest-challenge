@@ -5,8 +5,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CalculatorService {
-    @Autowired
+
     DynamicPercentageService dynamicPercentageService;
+
+    @Autowired
+    public CalculatorService(DynamicPercentageService dynamicPercentageService) {
+        this.dynamicPercentageService = dynamicPercentageService;
+    }
 
     public Double calculate(Double num1, Double num2) {
         Double percentage;

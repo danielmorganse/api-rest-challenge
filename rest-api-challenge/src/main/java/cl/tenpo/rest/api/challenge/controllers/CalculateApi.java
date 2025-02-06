@@ -23,9 +23,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -58,14 +58,13 @@ public interface CalculateApi {
         @ApiResponse(responseCode = "429", description = "Demasiadas solicitudes", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class))),
         
         @ApiResponse(responseCode = "500", description = "Error interno del servidor", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class))) })
-    @RequestMapping(value = "/calculate",
+    @PostMapping(value = "/calculate",
         produces = { "application/json" }, 
-        consumes = { "application/json" }, 
-        method = RequestMethod.POST)
+        consumes = { "application/json" })
     default ResponseEntity<CalculateResult> calculateSumWithPercentage(@Parameter(in = ParameterIn.DEFAULT, description = "", required=true, schema=@Schema()) @Valid @RequestBody CalculateBody body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
-            if (getAcceptHeader().get().contains("application/json")) {
+            if (getAcceptHeader().isPresent() && getAcceptHeader().get().contains("application/json")) {
                 try {
                     return new ResponseEntity<>(getObjectMapper().get().readValue("{\n  \"result\" : 11\n}", CalculateResult.class), HttpStatus.NOT_IMPLEMENTED);
                 } catch (IOException e) {

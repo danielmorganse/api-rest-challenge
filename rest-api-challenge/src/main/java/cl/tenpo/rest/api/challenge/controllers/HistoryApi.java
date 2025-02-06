@@ -22,8 +22,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
@@ -59,14 +59,13 @@ public interface HistoryApi {
         @ApiResponse(responseCode = "429", description = "Demasiadas solicitudes", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class))),
         
         @ApiResponse(responseCode = "500", description = "Error interno del servidor", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class))) })
-    @RequestMapping(value = "/history",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
+    @GetMapping(value = "/history",
+        produces = { "application/json" })
     default ResponseEntity<PaginatedHistory> getHistory(@Parameter(in = ParameterIn.QUERY, description = "" ,schema=@Schema( defaultValue="0")) @Valid @RequestParam(value = "page", required = false, defaultValue="0") Integer page
 , @Parameter(in = ParameterIn.QUERY, description = "" ,schema=@Schema( defaultValue="10")) @Valid @RequestParam(value = "size", required = false, defaultValue="10") Integer size
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
-            if (getAcceptHeader().get().contains("application/json")) {
+            if (getAcceptHeader().isPresent() && getAcceptHeader().get().contains("application/json")) {
                 try {
                     return new ResponseEntity<>(getObjectMapper().get().readValue("{\n  \"total\" : 0,\n  \"records\" : [ {\n    \"endpoint\" : \"endpoint\",\n    \"requestBody\" : \"requestBody\",\n    \"response\" : \"response\",\n    \"urlParameters\" : {\n      \"key\" : \"urlParameters\"\n    },\n    \"timestamp\" : \"2000-01-23T04:56:07.000+00:00\"\n  }, {\n    \"endpoint\" : \"endpoint\",\n    \"requestBody\" : \"requestBody\",\n    \"response\" : \"response\",\n    \"urlParameters\" : {\n      \"key\" : \"urlParameters\"\n    },\n    \"timestamp\" : \"2000-01-23T04:56:07.000+00:00\"\n  } ]\n}", PaginatedHistory.class), HttpStatus.NOT_IMPLEMENTED);
                 } catch (IOException e) {

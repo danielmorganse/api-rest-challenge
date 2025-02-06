@@ -27,11 +27,15 @@ public class LogApiCallFilter implements Filter {
 
     private static final Logger log = LoggerFactory.getLogger(LogApiCallFilter.class);
 
-    @Autowired
     private ApiCallLogService apiCallLogService;
 
-    @Autowired
     private AppConfigs appConfigs;
+
+    @Autowired
+    public LogApiCallFilter(ApiCallLogService apiCallLogService, AppConfigs appConfigs) {
+        this.apiCallLogService = apiCallLogService;
+        this.appConfigs = appConfigs;
+    }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws

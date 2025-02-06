@@ -35,10 +35,9 @@ public class CalculateApiController implements CalculateApi {
 
     private final HttpServletRequest request;
 
-    @Autowired
     private CalculatorService calculatorService;
 
-    @org.springframework.beans.factory.annotation.Autowired
+    @Autowired
     public CalculateApiController(ObjectMapper objectMapper, HttpServletRequest request,
                                   CalculatorService calculatorService) {
         this.objectMapper = objectMapper;
@@ -56,6 +55,7 @@ public class CalculateApiController implements CalculateApi {
         return Optional.ofNullable(request);
     }
 
+    @Override
     public ResponseEntity<CalculateResult> calculateSumWithPercentage(
             @Parameter(in = ParameterIn.DEFAULT, description = "", required = true, schema = @Schema()) @Valid
             @RequestBody CalculateBody body
@@ -65,9 +65,9 @@ public class CalculateApiController implements CalculateApi {
             Double result = this.calculatorService.calculate(body.getNum1(), body.getNum2());
             CalculateResult calculateResult = new CalculateResult();
             calculateResult.setResult(result);
-            return new ResponseEntity<CalculateResult>(calculateResult, HttpStatus.OK);
+            return new ResponseEntity<>(calculateResult, HttpStatus.OK);
         }
-        return new ResponseEntity<CalculateResult>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     @ExceptionHandler(value = {Exception.class})

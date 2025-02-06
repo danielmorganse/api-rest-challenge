@@ -24,13 +24,6 @@ public class CacheConfig {
     @Value("${spring.cache.redis.time-to-live}")
     private int ttl = 5;//5 minutos
 
-/*    @Bean
-    public CacheManager cacheManager() {
-        ConcurrentMapCacheManager mgr = new ConcurrentMapCacheManager();
-        mgr.setCacheNames(asList("cache1"));
-        return mgr;
-    }*/
-
     @Bean
     public RedisCacheConfiguration cacheConfiguration() {
         return RedisCacheConfiguration.defaultCacheConfig()
@@ -42,7 +35,7 @@ public class CacheConfig {
 
     @Bean
     public RedisCacheManagerBuilderCustomizer redisCacheManagerBuilderCustomizer() {
-        return (builder) -> builder
+        return builder -> builder
                 .withCacheConfiguration("cache1",
                         RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(this.ttl)));
     }

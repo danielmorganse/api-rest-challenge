@@ -10,7 +10,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class DynamicPercentageService {
-    @Autowired ExternalPercentageClient externalPercentageClient;
+
+    ExternalPercentageClient externalPercentageClient;
+
+    @Autowired
+    public DynamicPercentageService(ExternalPercentageClient externalPercentageClient) {
+        this.externalPercentageClient = externalPercentageClient;
+    }
 
     @CachePut(value = "cache1")
     public Double getPercentage() {

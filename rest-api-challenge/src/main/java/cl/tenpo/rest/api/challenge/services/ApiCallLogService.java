@@ -16,11 +16,15 @@ import java.util.List;
 @Service
 public class ApiCallLogService {
 
-    @Autowired
     private ApiCallRecordRepository apiCallRecordRepository;
 
-    @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    public ApiCallLogService(ApiCallRecordRepository apiCallRecordRepository, ModelMapper modelMapper) {
+        this.apiCallRecordRepository = apiCallRecordRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @Async
     public void save(ApiCallRecord entity) {

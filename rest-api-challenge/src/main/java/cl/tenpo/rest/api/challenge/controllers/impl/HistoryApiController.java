@@ -33,9 +33,9 @@ public class HistoryApiController implements HistoryApi {
 
     private final HttpServletRequest request;
 
-    @Autowired private ApiCallLogService apiCallLogService;
+    private ApiCallLogService apiCallLogService;
 
-    @org.springframework.beans.factory.annotation.Autowired
+    @Autowired
     public HistoryApiController(ObjectMapper objectMapper, HttpServletRequest request,
                                 ApiCallLogService apiCallLogService) {
         this.objectMapper = objectMapper;
@@ -53,6 +53,7 @@ public class HistoryApiController implements HistoryApi {
         return Optional.ofNullable(request);
     }
 
+    @Override
     public ResponseEntity<PaginatedHistory> getHistory(
             @Parameter(in = ParameterIn.QUERY, description = "", schema = @Schema(defaultValue = "0")) @Valid
             @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
@@ -60,10 +61,10 @@ public class HistoryApiController implements HistoryApi {
             @RequestParam(value = "size", required = false, defaultValue = "10") Integer size) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            return new ResponseEntity<PaginatedHistory>(this.apiCallLogService.findAll(page, size), HttpStatus.OK);
+            return new ResponseEntity<>(this.apiCallLogService.findAll(page, size), HttpStatus.OK);
         }
 
-        return new ResponseEntity<PaginatedHistory>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     @ExceptionHandler(value = {Exception.class})

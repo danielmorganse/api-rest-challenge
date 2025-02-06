@@ -11,11 +11,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 public class Bucket4jRateLimitApp implements WebMvcConfigurer {
 
-    @Autowired
     private AppConfigs appConfigs;
 
-    @Autowired
     private RateLimitInterceptor interceptor;
+
+    @Autowired
+    public Bucket4jRateLimitApp(AppConfigs appConfigs, RateLimitInterceptor interceptor) {
+        this.appConfigs = appConfigs;
+        this.interceptor = interceptor;
+    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

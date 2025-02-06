@@ -21,8 +21,12 @@ import java.io.IOException;
 @WebFilter(filterName = "ContentCachingFilter")
 public class ContentCachingFilter extends OncePerRequestFilter {
 
-    @Autowired
     private AppConfigs appConfigs;
+
+    @Autowired
+    public ContentCachingFilter(AppConfigs appConfigs) {
+        this.appConfigs = appConfigs;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
