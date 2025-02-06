@@ -21,8 +21,7 @@ public class DynamicPercentageService {
     @CachePut(value = "cache1")
     public Double getPercentage() {
         ResultExternalPercentage resultExternalPercentage = externalPercentageClient.getPercentage();
-        Double percentage = resultExternalPercentage.getPercentage();
-        return percentage;
+        return resultExternalPercentage.getPercentage();
     }
 
     @Cacheable(value = "cache1")
