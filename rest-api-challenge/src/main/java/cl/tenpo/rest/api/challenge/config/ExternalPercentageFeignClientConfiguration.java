@@ -22,7 +22,7 @@ public class ExternalPercentageFeignClientConfiguration {
 
     @Bean
     public Request.Options options() {
-        return new Request.Options(connectTimeout, readTimeout); // 5 seconds connect, 10 seconds read
+        return new Request.Options(connectTimeout, TimeUnit.MILLISECONDS, readTimeout, TimeUnit.MILLISECONDS, true);
     }
 
     @Bean
