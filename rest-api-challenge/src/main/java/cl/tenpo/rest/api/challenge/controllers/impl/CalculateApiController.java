@@ -59,8 +59,7 @@ public class CalculateApiController implements CalculateApi {
     ) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            //Double result = this.calculatorService.calculate(body.getNum1(), body.getNum2());
-            Double result = this.calculatorService.calculate(null, null);
+            Double result = this.calculatorService.calculate(body.getNum1(), body.getNum2());
             CalculateResult calculateResult = new CalculateResult();
             calculateResult.setResult(result);
             return new ResponseEntity<>(calculateResult, HttpStatus.OK);
