@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,9 +35,13 @@ public class ApiCallLogService {
     public PaginatedHistory findAll(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         long count = this.apiCallRecordRepository.count();
-        List<ApiCallRecord> list = this.apiCallRecordRepository.findAll(pageable).toList();
-        List<HistoryRecord> list2 =
-                list.stream().map(apiCallRecord -> modelMapper.map(apiCallRecord, HistoryRecord.class)).toList();
+        List<ApiCallRecord> list;
+        List<HistoryRecord> list2 = new ArrayList<>();
+        if (count > 0) {
+            list = this.apiCallRecordRepository.findAll(pageable).toList();
+            list2 =
+                    list.stream().map(apiCallRecord -> modelMapper.map(apiCallRecord, HistoryRecord.class)).toList();
+        }
 
         return PaginatedHistory.builder()
                 .total(count)
