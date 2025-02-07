@@ -56,7 +56,7 @@ Nota: La instrucción levantará el API REST, un servicio mock que retorna un po
       - Endpoint calculo: POST /calculate
          ```sh
          curl -X 'POST' \ 
-         'http://localhost:8082/calculate' \
+         'http://localhost:8082/api/v1/calculate' \
          -H 'accept: application/json' \
          -H 'Content-Type: application/json' \
          -d '{
@@ -68,7 +68,7 @@ Nota: La instrucción levantará el API REST, un servicio mock que retorna un po
       - Endpoint historial: GET /history
          ```sh
          curl -X 'GET' \
-         'http://localhost:8082/history?page=0&size=10' \
+         'http://localhost:8082/api/v1/history?page=0&size=10' \
          -H 'accept: application/json'
          ```
 
