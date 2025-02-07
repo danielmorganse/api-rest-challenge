@@ -11,12 +11,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +43,6 @@ class ApiCallLogServiceTest {
 
     @BeforeEach
     void setup() {
-        //this.modelMapper = new ModelMapper();
         MockitoAnnotations.openMocks(this);
     }
 
@@ -95,7 +92,7 @@ class ApiCallLogServiceTest {
 
         PaginatedHistory paginatedHistory = this.apiCallLogService.findAll(0, 10);
 
-        assertEquals(paginatedHistory.getTotal(), 0L);
+        assertEquals(0L, paginatedHistory.getTotal());
         assertTrue(paginatedHistory.getRecords().isEmpty());
 
         verify(this.apiCallRecordRepository, times(1)).count();
@@ -105,12 +102,12 @@ class ApiCallLogServiceTest {
     @Test
     void findAll_repositoryCountNonZero() {
         List<ApiCallRecord> listApiCallRecord = new ArrayList<>();
-        ApiCallRecord record = new ApiCallRecord();
-        listApiCallRecord.add(record);
-        listApiCallRecord.add(record);
-        listApiCallRecord.add(record);
-        listApiCallRecord.add(record);
-        listApiCallRecord.add(record);
+        ApiCallRecord apiCallRecord = new ApiCallRecord();
+        listApiCallRecord.add(apiCallRecord);
+        listApiCallRecord.add(apiCallRecord);
+        listApiCallRecord.add(apiCallRecord);
+        listApiCallRecord.add(apiCallRecord);
+        listApiCallRecord.add(apiCallRecord);
         Page<ApiCallRecord> page = new PageImpl<>(listApiCallRecord);
 
         when(this.apiCallRecordRepository.count()).thenReturn(5L);
@@ -118,7 +115,7 @@ class ApiCallLogServiceTest {
 
         PaginatedHistory paginatedHistory = this.apiCallLogService.findAll(0, 10);
 
-        assertEquals(paginatedHistory.getTotal(), 5L);
+        assertEquals(5L, paginatedHistory.getTotal());
         assertFalse(paginatedHistory.getRecords().isEmpty());
 
         verify(this.apiCallRecordRepository, times(1)).count();
