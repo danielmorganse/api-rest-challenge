@@ -1,9 +1,12 @@
 package cl.tenpo.rest.api.challenge.services;
 
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 @Service
+@Validated
 public class CalculatorService {
 
     DynamicPercentageService dynamicPercentageService;
@@ -13,7 +16,7 @@ public class CalculatorService {
         this.dynamicPercentageService = dynamicPercentageService;
     }
 
-    public Double calculate(Double num1, Double num2) {
+    public Double calculate(@NonNull Double num1, @NonNull Double num2) {
         Double percentage;
         try {
             percentage = this.dynamicPercentageService.getPercentage();

@@ -15,6 +15,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,7 +59,8 @@ public class CalculateApiController implements CalculateApi {
     ) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            Double result = this.calculatorService.calculate(body.getNum1(), body.getNum2());
+            //Double result = this.calculatorService.calculate(body.getNum1(), body.getNum2());
+            Double result = this.calculatorService.calculate(null, null);
             CalculateResult calculateResult = new CalculateResult();
             calculateResult.setResult(result);
             return new ResponseEntity<>(calculateResult, HttpStatus.OK);
@@ -73,6 +75,15 @@ public class CalculateApiController implements CalculateApi {
         error.setCode(BigDecimal.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
         error.setMessage("Error interno del servidor");
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(value = {HttpMessageNotReadableException.class})
+    protected ResponseEntity<Object> handleBadRequest(
+            RuntimeException ex, WebRequest request) {
+        Error error = new Error();
+        error.setCode(BigDecimal.valueOf(HttpStatus.BAD_REQUEST.value()));
+        error.setMessage("Petición invalida");
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(value
