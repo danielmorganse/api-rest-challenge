@@ -14,7 +14,7 @@
    - [Configuración de Logs de Llamadas a la API](#configuración-de-logs-de-llamadas-a-la-api)
    - [Configuración de la Base de Datos](#configuración-de-la-base-de-datos)
    - [Configuración en Ambiente de Desarrollo](#configuración-en-ambiente-de-desarrollo)
-- **[Bitacora desiciones técnicas](#bitacora-desiciones-técnicas)**
+- **[Bitacora de decisiones técnicas](#bitacora-de-decisiones-técnicas)**
 
 # Descripción
 Este proyecto es una API REST desarrollada en Spring Boot utilizando Java 21. 
@@ -190,7 +190,7 @@ spring.jpa.hibernate.ddl-auto=create-drop
 
 ---
 
-# Bitacora desiciones técnicas
+# Bitacora de decisiones técnicas
 
 1. **Mock Service con OutOfCoffee/Imposter**: Para evitar dependencias de servicios externos en el desarrollo y pruebas, se ha utilizado OutOfCoffee/Imposter como servicio mock de porcentaje. Esto permite simular respuestas predefinidas sin necesidad de desplegar entornos adicionales, agilizando el desarrollo y las pruebas automatizadas.
 
