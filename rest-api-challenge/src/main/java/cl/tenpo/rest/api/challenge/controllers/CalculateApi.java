@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.io.IOException;
 import java.util.Optional;
 
-
 @Validated
 @RequestMapping(path = "${api.base-path}")
 public interface CalculateApi {
